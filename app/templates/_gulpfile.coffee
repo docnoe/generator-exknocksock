@@ -17,13 +17,12 @@ htmlreplace = require("gulp-html-replace")
 browserSync = require("browser-sync").create()
 gutil = require("gulp-util")
 rename = require("gulp-rename")
-
-<% if (usesCoffeeScript) { %>
+mainBowerFiles = require("main-bower-files")
+_ = require("lodash")
+path = require("path")
 coffee = require("gulp-coffee")
 sourcemaps = require("gulp-sourcemaps")
-<% } %>
 
-<% if (usesCoffeeScript) { %>
 # Compile all .coffee files, producing .js
 gulp.task "coffee", ->
   gulp.src('./<%= sourceBase %>/**/*.coffee')
@@ -32,11 +31,9 @@ gulp.task "coffee", ->
   .on("error", gutil.log))
   .pipe(sourcemaps.write())
   .pipe gulp.dest('./<%= sourceBase %>/')
-<% } %>
-
 
 # Discovers all AMD dependencies, concatenates together all required .js files, minifies them
-gulp.task "js", <% if (usesCoffeeScript) { %>['coffee'] <% } %>, ->
+gulp.task "js", ["injectDeps", 'coffee'], ->
   # Config
   requireJsRuntimeConfig = vm.runInNewContext(fs.readFileSync("<%= sourceBase %>/app/require.config.js") + "; require;")
   requireJsOptimizerConfig =
@@ -141,19 +138,18 @@ gulp.task "production", [
   return
 
 gulp.task "debug", [
-  <% if (usesCoffeeScript) { %>"coffee" <% } %>
+  "coffee"
+  "injectDeps"
   "debugSync"
 ], ->
-  <% if (usesCoffeeScript) { %>
   gulp.watch ["<%= sourceBase %>/**/*.coffee"], ["coffee"]
-  <% } %>
 
   gulp.watch [
     "<%= sourceBase %>/**/*.js"
     "<%= sourceBase %>/**/*.html"
   ], ["reload"]
   gulp.watch ["bin/www"], ["copyWWW"]
-  return
+  gulp.watch ["bower.json"], ["injectDeps"]
 
 gulp.task "default", [
   "html"
@@ -163,3 +159,38 @@ gulp.task "default", [
   callback()
   console.log "\nPlaced optimized files in " + chalk.magenta("dist/\n")
   return
+
+gulp.task "injectDeps", ->
+  dependencyInfos = (file) ->
+    dependencyBaseDir = file.relative.split(path.sep)[0]
+    lowercaseDepName = _.camelCase(dependencyBaseDir).toLowerCase()
+    injectedPathDir = "bower_modules/#{path.dirname(file.relative)}"
+    stem = path.basename(file.relative, '.js')
+    injectedPathFull = "#{injectedPathDir}/#{stem}"
+
+    fileInfo =
+      name: lowercaseDepName
+      path: injectedPathFull
+      stem: stem
+
+  gulp.src mainBowerFiles(), {base: "src/bower_modules/"}
+  .pipe es.map (file, cb) ->
+    skip = ->
+      cb()
+    infos = dependencyInfos file
+    requireFilePath = "src/app/require.config.coffee"
+    requireConfig = fs.readFileSync requireFilePath
+    .toString()
+    if requireConfig.match(infos.path)
+      console.log chalk.white "#{infos.name} already in require config"
+      skip()
+    else if infos.stem is "require"
+      console.log chalk.white "requirejs is not needed as dependency, skipping"
+      skip()
+    else
+      console.log infos.name
+      console.log chalk.cyan.bold "adding #{infos.path}"
+      replacecomment = "    # [Scaffolded plugin registrations will be inserted here. To retain this feature, don't remove this comment.]"
+      requireConfig = requireConfig.replace replacecomment, "    #{infos.name}: \"#{infos.path}\"\n#{replacecomment}"
+      fs.writeFileSync requireFilePath, requireConfig
+      cb null, file

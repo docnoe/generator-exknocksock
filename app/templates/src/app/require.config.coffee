@@ -7,11 +7,12 @@ require =
     hasher: "bower_modules/hasher/dist/js/hasher.min"
     jquery: "bower_modules/jquery/dist/jquery"
     knockout: "bower_modules/knockout/dist/knockout"
-    "knockout-projections": "bower_modules/knockout-projections/dist/knockout-projections"
+    "knockout-projections": "bower_modules/knockout-projections/dist/knockout-projections.min"
     signals: "bower_modules/js-signals/dist/signals.min"
     text: "bower_modules/requirejs-text/text"
     backend: "services/backend"
     socketio: "/socket.io/socket.io"
+    # [Scaffolded plugin registrations will be inserted here. To retain this feature, don't remove this comment.]
 
     # Classes
     # [Scaffolded classes registrations will be inserted here. To retain this feature, don't remove this comment.]
