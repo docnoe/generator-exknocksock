@@ -29,8 +29,6 @@ else
   app.use "/", express.static path.join __dirname, 'public'
 
 # require and use routes [leave this comment for yeoman]
-# cloneRoute = require "./routes/clone"
-# app.use "/clone", clone
 
 # catch 404 and forward to error handler
 app.use (req, res, next) ->
