@@ -10,6 +10,5 @@ bower_modules/
 <%= sourceBase %>/**/*.js.map
 
 # ... except specific ones, which should be tracked
-!<%= sourceBase %>/app/require.config.js
 !<%= sourceBase %>/app/lib/*.js*
 <% } %>
