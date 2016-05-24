@@ -15,7 +15,8 @@
     "debug": "~2.1.1",
     "express.oi": "0.0.20",
     "jade": "~1.9.1",
-    "serve-favicon": "~2.2.0"
+    "serve-favicon": "~2.2.0",
+    "morgan": "~1.5.1"
   },
   "devDependencies": {<% if(usesCoffeeScript) { %>
     "coffee-script": "^1.10.0",
@@ -41,7 +42,6 @@
     "gulp-uglify": "^1.5.1",
     "gulp-util": "^3.0.7",
     "lodash": "^4.5.0",
-    "main-bower-files": "^2.11.1",
-    "morgan": "~1.5.1"
+    "main-bower-files": "^2.11.1"
   }
 }
