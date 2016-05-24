@@ -58,7 +58,10 @@ gulp.task "js", ["injectDeps", 'coffee'], ->
   # 'bundle-name': [ 'some/module', 'another/module' ],
   # 'another-bundle-name': [ 'yet-another-module' ]
 
-    bundles: {}
+    bundles: {
+      "bower_modules/socket.io-client/socket.io": ["bower_modules/socket.io-client/socket.io"]
+    }
+
     optimize: "none"
 
 
