@@ -10,5 +10,8 @@
     "requirejs-text": "~2.0.10",
     "knockout": "~3.4.0",
     "knockout-projections": "~1.1.0"
+  },
+    "resolutions": {
+    "knockout": "~3.4.0"
   }
 }
