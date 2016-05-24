@@ -15,7 +15,6 @@ normalizePort = (val) ->
   # port number
   else if port >= 0
     port
-  false
 
 # Event listener for HTTP server "error" event.
 onError = (error) ->
