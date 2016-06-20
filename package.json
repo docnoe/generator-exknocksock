@@ -23,10 +23,10 @@
     "service"
   ],
   "keywords": [
-    "yeoman-generator"
-    "knockout.js"
-    "socket.io"
-    "express"
+    "yeoman-generator",
+    "knockout.js",
+    "socket.io",
+    "express",
     "CoffeeScript"
   ],
   "dependencies": {
