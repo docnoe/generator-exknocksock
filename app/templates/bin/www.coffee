@@ -4,6 +4,7 @@
 app = require '../app'
 debug = require('debug') '<%= slugName %>:server'
 http = require 'http'
+fs = require 'fs'
 
 # Normalize a port into a number, string, or false.
 normalizePort = (val) ->
@@ -42,6 +43,8 @@ onListening = ->
   bind = if typeof addr is 'string' then "pipe #{addr}" else "port #{addr.port}"
   debug "Listening on #{bind}"
   console.log "Listening on #{bind}"
+  fs.writeFile ".port", addr.port, (err) ->
+    console.log err if err
 
 # Get port from environment and store in Express.
 port = normalizePort(process.env.PORT) or '3000'
