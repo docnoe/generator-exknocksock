@@ -1,7 +1,7 @@
 {
   "name": "generator-exknocksock",
   "version": "1.0.0",
-  "description": "Yeoman generator",
+  "description": "Yeoman generator for realtime SPAs with Knockout.js and express.oi. Using CoffeeScript",
   "license": "MIT",
   "main": "app/index.js",
   "repository": "https://github.com/docnoe/generator-exknocksock",
@@ -11,20 +11,23 @@
     "url": "https://github.com/docnoe"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.12.0"
   },
   "scripts": {
     "test": "mocha"
   },
   "files": [
     "app",
-    "class",
+    "binding",
     "component",
-    "singleton",
     "service"
   ],
   "keywords": [
     "yeoman-generator"
+    "knockout.js"
+    "socket.io"
+    "express"
+    "CoffeeScript"
   ],
   "dependencies": {
     "yeoman-generator": "~0.16.0",
