@@ -1,10 +1,11 @@
+# coffeelint: disable=max_line_length
 # Node modules
 
 fs = require("fs")
 vm = require("vm")
-merge = require("deeply")
 chalk = require("chalk")
 es = require("event-stream")
+upath = require 'upath'
 
 # Gulp and plugins
 gulp = require("gulp")
@@ -169,12 +170,13 @@ gulp.task "injectDeps", ->
     lowercaseDepName = _.camelCase(dependencyBaseDir).toLowerCase()
     injectedPathDir = "bower_modules/#{path.dirname(file.relative)}"
     stem = path.basename(file.relative, '.js')
-    injectedPathFull = "#{injectedPathDir}/#{stem}"
+    injectedPathFull = upath.normalize path.normalize "#{injectedPathDir}/#{stem}"
 
     fileInfo =
       name: lowercaseDepName
       path: injectedPathFull
       stem: stem
+    return fileInfo
 
   gulp.src mainBowerFiles(), {base: "src/bower_modules/"}
   .pipe es.map (file, cb) ->
