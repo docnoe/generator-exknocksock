@@ -106,11 +106,20 @@ gulp.task "sync", ->
     baseDir: "./public/"
   return
 
+
+try
+  port = fs.readFileSync ".port"
+  port = parseInt port.toString(), 10
+catch
+  port = 3000
+console.log port
+
 gulp.task "debugSync", ->
   browserSync.init
-    proxy: "localhost:3000"
+    proxy: "localhost:#{port}"
     port: 4000
     ws: true
+    ghostMode: false
   return
 
 gulp.task "reload", ->
