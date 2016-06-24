@@ -14,10 +14,6 @@ require =
     socketio: "/socket.io/socket.io"
     # [Scaffolded plugin registrations will be inserted here. To retain this feature, don't remove this comment.]
 
-    # Classes
-    # [Scaffolded classes registrations will be inserted here. To retain this feature, don't remove this comment.]
-
-
   shim:
     bootstrap:
       deps: ["jquery"]
