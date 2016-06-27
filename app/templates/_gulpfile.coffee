@@ -160,6 +160,7 @@ gulp.task "debug", [
   gulp.watch [
     "<%= sourceBase %>/**/*.js"
     "<%= sourceBase %>/**/*.html"
+    "<%= sourceBase %>/**/*.css"
   ], ["reload"]
   gulp.watch ["bin/www"], ["copyWWW"]
   gulp.watch ["bower.json"], ["injectDeps"]
