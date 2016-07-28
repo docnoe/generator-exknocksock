@@ -6,10 +6,10 @@ Feel free to (re)add js and ts templates.
 # generator-exknocksock
 Yeoman generator to setup an app with express, socket.io and knockout.js. Based on the fabulous generator-ko by Steve Sanderson.
 
-Creating SPAs with knockout.js rocks! Especially when it's models are populated by socket.io. 
+Creating SPAs with knockout.js rocks! Especially when it's models are populated by socket.io.
 
 ## Backend
-Using Express.oi for the backend makes realtime routing possible.
+Using Express.oi for the backend makes realtime routing possible and easy.
 
 ## Frontend
 Knockout.js + requirejs + gulp = a breece to greate modular SPAs.
