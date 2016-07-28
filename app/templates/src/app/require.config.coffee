@@ -1,3 +1,4 @@
+# coffeelint: disable=max_line_length
 # require.js looks for the following global when initializing
 require =
   baseUrl: "."

@@ -1,3 +1,4 @@
+# coffeelint: disable=max_line_length
 define [
   "jquery"
   "knockout"
@@ -18,4 +19,3 @@ define [
   # Start the application
   ko.applyBindings route: router.currentRoute
   return
-

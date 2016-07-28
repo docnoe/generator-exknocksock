@@ -1,3 +1,4 @@
+# coffeelint: disable=max_line_length
 define [
   "knockout"
   "crossroads"
@@ -17,21 +18,17 @@ define [
     ko.utils.arrayForEach config.routes, (route) ->
       crossroads.addRoute route.url, (requestParams) ->
         currentRoute ko.utils.extend(requestParams, route.params)
-        return
-
-      return
-
     activateCrossroads()
-    return
+
   activateCrossroads = ->
-    parseHash = (newHash, oldHash) ->
+    parseHash = (newHash) ->
       crossroads.parse newHash
-      return
+
     crossroads.normalizeFn = crossroads.NORM_AS_OBJECT
     hasher.initialized.add parseHash
     hasher.changed.add parseHash
     hasher.init()
-    return
+
   return new Router(routes: [
     {
       url: ""
@@ -44,4 +41,3 @@ define [
         page: "home-page"
     }
   ])
-
