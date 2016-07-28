@@ -1,7 +1,7 @@
 express = require 'express.oi'
 path = require 'path'
-favicon = require 'serve-favicon'
-logger = require 'morgan'
+# favicon = require 'serve-favicon'
+# logger = require 'morgan'
 cookieParser = require 'cookie-parser'
 bodyParser = require 'body-parser'
 
@@ -27,12 +27,9 @@ else
   console.log "using public"
   app.use "/", express.static path.join __dirname, 'public'
 
-# require and use routes [leave this comment for yeoman]
-
-app.io.route "foo", {
-  list: (req, res) ->
-    res.json(foo)
-}
+# require and use routes
+app.io.route "foo", require "./routes/foo"
+# yeoman route insert [leave this comment for yeoman]
 
 # catch 404 and forward to error handler
 app.use (req, res, next) ->
@@ -44,7 +41,7 @@ app.use (req, res, next) ->
 # development error handler
 # will print stacktrace
 if app.get('env') is 'development'
-  app.use (err, req, res, next) ->
+  app.use (err, req, res) ->
     res.status err.status or 500
     res.render 'error',
       message: err.message,
@@ -52,7 +49,7 @@ if app.get('env') is 'development'
 
 # production error handler
 # no stacktraces leaked to user
-app.use (err, req, res, next) ->
+app.use (err, req, res) ->
   res.status err.status or 500
   res.render 'error',
     message: err.message,
