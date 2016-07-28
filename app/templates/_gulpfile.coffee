@@ -23,7 +23,7 @@ _ = require("lodash")
 path = require("path")
 coffee = require("gulp-coffee")
 sourcemaps = require("gulp-sourcemaps")
-<% if(useStylus) { %> stylus = require("gulp-stylus") <% } %>
+<% if(useStylus) { %>stylus = require("gulp-stylus")<% } %>
 
 
 # Compile all .coffee files, producing .js
