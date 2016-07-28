@@ -20,7 +20,9 @@
     "app",
     "binding",
     "component",
-    "service"
+    "service",
+    "route"
+
   ],
   "keywords": [
     "yeoman-generator",
