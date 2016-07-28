@@ -12,7 +12,7 @@ define [
 
   io.post = (where, what, cb) ->
     $.post "/#{where}", what
-      .done (data) ->
-        console.log data
+    .done (data) ->
+      cb data if cb
 
   return io
