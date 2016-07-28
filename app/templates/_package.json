@@ -39,9 +39,11 @@
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
     "gulp-requirejs-cdnbundler": "^1.0.0",
+    <% if(useStylus) { %>"gulp-stylus": "^2.5.0",<% } %>
     "gulp-uglify": "^1.5.1",
     "gulp-util": "^3.0.7",
     "lodash": "^4.5.0",
-    "main-bower-files": "^2.11.1"
+    "main-bower-files": "^2.11.1",
+    "upath": "^0.1.7"
   }
 }

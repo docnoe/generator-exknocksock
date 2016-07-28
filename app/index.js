@@ -63,6 +63,11 @@ var ExKnockGenerator = yeoman.generators.Base.extend({
             choices: [languageChoice.coffee, languageChoice.js]
         }, {
             type: 'confirm',
+            name: 'useStylus',
+            message: 'Do you want to use stylus as css pre-processor?',
+            default: true
+        }, {
+            type: 'confirm',
             name: 'includeTests',
             message: 'Do you want to include automated tests, using Jasmine and Karma?',
             default: true
@@ -80,6 +85,7 @@ var ExKnockGenerator = yeoman.generators.Base.extend({
             this.longName = props.name;
             this.slugName = this._.slugify(this.longName);
             this.usesCoffeeScript = props.codeLanguage === languageChoice.coffee;
+            this.useStylus = props.useStylus;
             this.includeTests = props.includeTests;
             this.sourceBase = props.sourceBase;
             this.distBase = props.distBase;
@@ -93,6 +99,7 @@ var ExKnockGenerator = yeoman.generators.Base.extend({
         this._processDirectory('src', this.sourceBase, excludeExtension);
         this._processDirectory('bin', "bin", excludeExtension);
         this._processDirectory('views', "views", excludeExtension);
+        this._processDirectory('routes', "routes", excludeExtension);
         this.template('_package.json', 'package.json');
         this.template('_bower.json', 'bower.json');
         if (this.usesCoffeeScript) {

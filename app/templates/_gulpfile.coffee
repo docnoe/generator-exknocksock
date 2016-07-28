@@ -23,6 +23,8 @@ _ = require("lodash")
 path = require("path")
 coffee = require("gulp-coffee")
 sourcemaps = require("gulp-sourcemaps")
+<% if(useStylus) { %> stylus = require("gulp-stylus") <% } %>
+
 
 # Compile all .coffee files, producing .js
 gulp.task "coffee", ->
@@ -65,14 +67,21 @@ gulp.task "js", ["injectDeps", 'coffee'], ->
 
     optimize: "none"
 
-
   rjs(requireJsRuntimeConfig, requireJsOptimizerConfig)
   # .pipe(uglify(preserveComments: "some"))
   .pipe gulp.dest("./public/")
 
+<% if(useStylus) { %>
+gulp.task "stylus", ->
+  gulp.src('./src/css/**/*.styl')
+  .pipe(sourcemaps.init())
+  .pipe(stylus())
+  .pipe(sourcemaps.write())
+  .pipe gulp.dest('./src/css/')
+<% } %>
 
 # Concatenates CSS files, rewrites relative paths to Bootstrap fonts, copies Bootstrap fonts
-gulp.task "css", ->
+gulp.task "css",<% if(useStylus) { %>["stylus"], <% } %>->
   bowerCss = gulp.src("<%= sourceBase %>/bower_modules/components-bootstrap/css/bootstrap.min.css").pipe(replace(/url\((')?\.\.\/fonts\//g, "url($1fonts/"))
   appCss = gulp.src("<%= sourceBase %>/css/*.css")
   combinedCss = es.concat(bowerCss, appCss).pipe(concat("css.css"))
